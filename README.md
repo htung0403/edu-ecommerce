@@ -1,30 +1,29 @@
-# EduMarket - Sàn Giáo Dục Thương Mại Điện Tử với AI
+# EduMarket - Sàn Thương Mại Điện Tử Giáo Dục với AI
 
 ## 🚀 Tổng quan
 
-EduMarket là một ứng dụng web hiện đại cho sàn giáo dục thương mại điện tử tích hợp AI, được xây dựng bằng React và Tailwind CSS. Ứng dụng cung cấp trải nghiệm học tập thông minh với các tính năng gợi ý cá nhân hóa, chatbot AI, và giao diện responsive.
+EduMarket là một ứng dụng web hiện đại cho sàn thương mại điện tử giáo dục tích hợp AI, được xây dựng bằng React và Tailwind CSS. Ứng dụng cung cấp trải nghiệm học tập thông minh với các tính năng gợi ý cá nhân hóa, chatbot AI, và giao diện responsive.
 
 ## ✨ Tính năng chính
 
 ### 🎯 Tính năng cơ bản
-- **Hiển thị danh sách sản phẩm**: Xem tất cả khóa học với thông tin chi tiết (tên, giá, ảnh, mô tả)
-- **Tìm kiếm và lọc**: Tìm kiếm thông minh theo tên, danh mục, giá cả với suggestions
-- **Modal chi tiết sản phẩm**: Xem thông tin đầy đủ về khóa học khi click "Xem chi tiết"
-- **Yêu thích**: Đánh dấu và quản lý các khóa học yêu thích
-- **Giỏ hàng**: Thêm khóa học vào giỏ hàng và quản lý
-- **Lịch sử xem**: Theo dõi các sản phẩm đã xem gần đây
+- **Hiển thị danh sách khóa học**: Xem tất cả khóa học với thông tin chi tiết
+- **Tìm kiếm và lọc thông minh**: Tìm kiếm theo tên, danh mục, giá cả
+- **Chi tiết khóa học**: Modal hiển thị thông tin đầy đủ
+- **Yêu thích**: Đánh dấu và quản lý khóa học yêu thích
+- **Giỏ hàng**: Thêm khóa học vào giỏ hàng và thanh toán
+- **Lịch sử xem**: Theo dõi các khóa học đã xem gần đây
 
 ### 🤖 Tính năng AI
-- **Gợi ý thông minh**: AI đề xuất khóa học phù hợp dựa trên hành vi người dùng
-- **Chatbot tư vấn**: Trợ lý AI hỗ trợ tìm kiếm và tư vấn khóa học
-- **Gợi ý tìm kiếm**: Auto-complete và suggestions khi nhập tìm kiếm
+- **Gợi ý thông minh**: AI đề xuất khóa học phù hợp dựa trên hành vi
+- **Chatbot tư vấn**: Trợ lý AI hỗ trợ tìm kiếm và tư vấn
+- **Gợi ý tìm kiếm**: Auto-complete và suggestions thông minh
 
-### 📱 Tính năng UX/UI
-- **Responsive Design**: Tối ưu cho desktop, tablet, mobile
+### 📱 Trải nghiệm người dùng
+- **Responsive Design**: Tối ưu cho mọi thiết bị
 - **Loading Skeleton**: Trải nghiệm loading mượt mà
-- **Animations**: Hiệu ứng hover và transition
-- **Error Handling**: Xử lý lỗi thân thiện với người dùng
-- **Toast Notifications**: Thông báo khi thêm/xóa yêu thích
+- **Animations**: Hiệu ứng hover và transition đẹp mắt
+- **Toast Notifications**: Thông báo real-time thân thiện
 
 ## 🛠️ Công nghệ sử dụng
 
@@ -32,20 +31,19 @@ EduMarket là một ứng dụng web hiện đại cho sàn giáo dục thương
 - **Styling**: Tailwind CSS
 - **State Management**: React Context + useReducer
 - **Icons**: Lucide React
-- **HTTP Client**: Axios
-- **UI Components**: Headless UI
-- **Storage**: localStorage để lưu trữ dữ liệu
+- **Storage**: localStorage
+- **Deployment**: Vercel
 
-## 📦 Cài đặt và chạy dự án
+## 📦 Cài đặt và chạy
 
-### Yêu cầu hệ thống
+### Yêu cầu
 - Node.js 18.0+
 - npm hoặc yarn
 
 ### Cài đặt
 ```bash
 # Clone repository
-git clone <repository-url>
+git clone https://github.com/htung0403/edu-ecommerce.git
 cd edu-ecommerce
 
 # Cài đặt dependencies
@@ -55,180 +53,83 @@ npm install
 npm run dev
 ```
 
-### Scripts có sẵn
+### Scripts
 ```bash
-# Chạy development server (port 5173)
-npm run dev
-
-# Build cho production
-npm run build
-
-# Preview build
-npm run preview
-
-# Lint code
-npm run lint
+npm run dev      # Chạy development (port 5173)
+npm run build    # Build cho production
+npm run preview  # Preview build locally
+npm run lint     # Lint code
 ```
 
 ## 🏗️ Cấu trúc dự án
 
 ```
 src/
-├── components/         # Các component tái sử dụng
-│   ├── Header.jsx     # Header navigation với menu
-│   ├── ProductCard.jsx # Card hiển thị sản phẩm
-│   ├── ProductModal.jsx # Modal chi tiết sản phẩm
-│   ├── SearchBar.jsx  # Thanh tìm kiếm với filters
-│   ├── Chatbot.jsx    # Chatbot AI tư vấn
-│   └── LoadingSkeleton.jsx # Loading skeleton
+├── components/         # Components tái sử dụng
+│   ├── Header.jsx     # Navigation header
+│   ├── ProductCard.jsx # Card hiển thị khóa học
+│   ├── ProductModal.jsx # Modal chi tiết
+│   ├── SearchBar.jsx  # Thanh tìm kiếm
+│   ├── Chatbot.jsx    # AI Chatbot
+│   └── ...
 ├── pages/             # Các trang chính
-│   ├── HomePage.jsx   # Trang chủ với products và AI suggestions
-│   ├── FavoritesPage.jsx # Trang sản phẩm yêu thích
-│   ├── CartPage.jsx   # Trang giỏ hàng
-│   └── HistoryPage.jsx # Trang lịch sử xem
+│   ├── HomePage.jsx   # Trang chủ
+│   ├── CoursesPage.jsx # Trang khóa học
+│   ├── FavoritesPage.jsx # Yêu thích
+│   ├── CartPage.jsx   # Giỏ hàng
+│   └── ...
 ├── context/           # State management
-│   └── AppContext.jsx # Global state với useReducer
+│   ├── AppContext.jsx # App state
+│   ├── AuthContext.jsx # Authentication
+│   └── OrderContext.jsx # Orders
 ├── hooks/             # Custom hooks
-│   ├── useProducts.js # Hook quản lý sản phẩm
-│   ├── useSuggestions.js # Hook AI suggestions
-│   ├── useSearchSuggestions.js # Hook search suggestions
-│   ├── useChatbot.js  # Hook chatbot
-│   └── useApp.js      # Hook context
 ├── services/          # API services
-│   └── api.js         # Mock API với delays
 ├── data/              # Mock data
-│   └── mockData.js    # Dữ liệu mẫu khóa học
-└── styles/
-    └── index.css      # Tailwind CSS
+└── utils/             # Utilities
 ```
 
-## 🎨 Thiết kế UI/UX
+## 🎯 Demo
 
-### Màu sắc chính
-- **Primary**: Blue-600 (#2563eb)
-- **Secondary**: Gray-600 (#4b5563)
-- **Success**: Green-500 (#10b981)
-- **Error**: Red-500 (#ef4444)
-- **AI Gradient**: Purple-600 to Pink-600
+🌐 **Live Demo**: [https://edu-ecommerce-lime.vercel.app/](https://edu-ecommerce-lime.vercel.app/)
 
-### Responsive Breakpoints
-- **Mobile**: < 768px
-- **Tablet**: 768px - 1024px
-- **Desktop**: > 1024px
+### Tài khoản demo
+- **Email**: demo@edumarket.com  
+- **Password**: password
 
-## 🔧 Tính năng kỹ thuật
+## 📋 Checklist tính năng
 
-### State Management
-- React Context với useReducer pattern
-- Persistent state với localStorage
-- Optimistic updates cho UX tốt hơn
-
-### Mock API
-- Simulate network delays (500-1500ms)
-- Error handling và retry logic
-- Search và filter functionality
-- Chatbot responses
-
-### Performance
-- Code splitting
-- Lazy loading
-- React.memo optimization
-- useCallback cho expensive operations
-
-## 🚀 Deployment cho EduMarket
-
-### Vercel (Khuyên dùng)
-```bash
-# Cài đặt Vercel CLI
-npm i -g vercel
-
-# Deploy
-vercel
-
-# Production deploy
-vercel --prod
-```
-
-### Netlify
-```bash
-# Build local
-npm run build
-
-# Kéo thả thư mục dist/ vào Netlify
-# Hoặc connect GitHub với settings:
-# Build command: npm run build
-# Publish directory: dist
-```
-
-### Troubleshooting Deployment
-
-#### Lỗi MIME type
-- Đảm bảo có file vercel.json hoặc _redirects
-- Kiểm tra base path trong vite.config.js
-- Clear cache và rebuild: npm run clean && npm run build
-
-#### Lỗi 404 khi refresh
-- SPA routing cần redirect về index.html
-- Kiểm tra _redirects file cho Netlify
-- Vercel tự động handle với vercel.json config
-
-### Environment Variables
-Không cần thiết lập environment variables cho phiên bản hiện tại (sử dụng mock data).
-
-## 🎯 Đáp ứng yêu cầu đề bài
-
-### ✅ Yêu cầu chức năng
-- [x] Hiển thị danh sách sản phẩm với mock data
-- [x] Tìm kiếm theo tên sản phẩm
-- [x] Bộ lọc giá (<500K, 500K-1M, >1M)
-- [x] Nút "Gợi ý sản phẩm phù hợp" với API /api/suggestions
+### ✅ Yêu cầu cơ bản
+- [x] Hiển thị danh sách sản phẩm
+- [x] Tìm kiếm theo tên
+- [x] Bộ lọc theo giá
 - [x] Modal chi tiết sản phẩm
-- [x] Tính năng yêu thích và trang yêu thích riêng
+- [x] Tính năng yêu thích
+- [x] API gợi ý sản phẩm
 
-### ✅ Yêu cầu kỹ thuật
-- [x] React với hooks (useState, useEffect, useReducer)
-- [x] State management với Context
-- [x] Axios cho mock API
-- [x] Code sạch, component hóa
-- [x] README hướng dẫn build và run
-
-### ✅ Điểm cộng
+### ✅ Tính năng nâng cao
+- [x] Authentication với đăng ký/đăng nhập
+- [x] Giỏ hàng và checkout
 - [x] Lịch sử xem sản phẩm
-- [x] Loading skeleton khi gọi API
-- [x] Xử lý lỗi khi API fail
-- [x] Chatbot AI tư vấn sản phẩm
+- [x] Chatbot AI tư vấn
 - [x] Search suggestions
-- [x] Responsive design
+- [x] Loading states và error handling
+- [x] Responsive design hoàn chỉnh
 
-### ✅ Yêu cầu UX/UI
-- [x] Thiết kế hiện đại, clean
-- [x] Responsive trên mọi thiết bị
-- [x] Hiệu ứng hover, transition
-- [x] Màu sắc đồng bộ
-- [x] Toast notifications cho yêu thích
-
-## 🤝 Đóng góp
-
-1. Fork repository
-2. Tạo feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Tạo Pull Request
+### ✅ Kỹ thuật
+- [x] React hooks (useState, useEffect, useReducer)
+- [x] Context API cho state management
+- [x] Component-based architecture
+- [x] Clean code và best practices
+- [x] Mock API với realistic delays
 
 ## 📄 License
 
 Dự án được phát hành dưới [MIT License](LICENSE).
 
-## 👥 Tác giả
+## 👨‍� Tác giả
 
-- **GitHub Copilot** - *AI Assistant Developer*
+**htung0403** - [GitHub Profile](https://github.com/htung0403)
 
-## 🙏 Cảm ơn
+---
 
-- React team cho framework tuyệt vời
-- Tailwind CSS cho styling system
-- Lucide React cho icon set
-- Vite cho build tool nhanh chóng
-=======
-# edu-ecommerce
->>>>>>> 32807a65df7cf160e47c40c6aa2ba8a76a34cf1e
+⭐ **Nếu bạn thấy project hữu ích, hãy cho một star nhé!** ⭐
