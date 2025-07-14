@@ -26,7 +26,7 @@ const LoginModal = ({ isOpen, onClose }) => {
     
     try {
       if (isLoginMode) {
-        await login(formData.email, formData.password);
+        await login({ email: formData.email, password: formData.password });
       } else {
         await register(formData);
       }
