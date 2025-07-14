@@ -1,0 +1,16 @@
+{
+  "name": "EduMarket - Sàn Thương Mại Điện Tử Giáo Dục",
+  "short_name": "EduMarket",
+  "description": "Sàn thương mại điện tử giáo dục với AI, cung cấp các khóa học chất lượng cao",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3B82F6",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
