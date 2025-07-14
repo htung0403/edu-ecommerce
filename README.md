@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # EduMarket - Sàn Giáo Dục Thương Mại Điện Tử với AI
 
 ## 🚀 Tổng quan
@@ -219,3 +220,6 @@ Dự án được phát hành dưới [MIT License](LICENSE).
 - Tailwind CSS cho styling system
 - Lucide React cho icon set
 - Vite cho build tool nhanh chóng
+=======
+# edu-ecommerce
+>>>>>>> 32807a65df7cf160e47c40c6aa2ba8a76a34cf1e
