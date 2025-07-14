@@ -135,14 +135,9 @@ src/
 - React.memo optimization
 - useCallback cho expensive operations
 
-## 🚀 Deployment
+## 🚀 Deployment cho EduMarket
 
-### Build cho production
-```bash
-npm run build
-```
-
-### Deploy lên Vercel
+### Vercel (Khuyên dùng)
 ```bash
 # Cài đặt Vercel CLI
 npm i -g vercel
@@ -150,17 +145,32 @@ npm i -g vercel
 # Deploy
 vercel
 
-# Hoặc connect GitHub repo trực tiếp
+# Production deploy
+vercel --prod
 ```
 
-### Deploy lên Netlify
+### Netlify
 ```bash
-# Build
+# Build local
 npm run build
 
-# Upload thư mục dist/ lên Netlify
-# Hoặc connect GitHub repo
+# Kéo thả thư mục dist/ vào Netlify
+# Hoặc connect GitHub với settings:
+# Build command: npm run build
+# Publish directory: dist
 ```
+
+### Troubleshooting Deployment
+
+#### Lỗi MIME type
+- Đảm bảo có file vercel.json hoặc _redirects
+- Kiểm tra base path trong vite.config.js
+- Clear cache và rebuild: npm run clean && npm run build
+
+#### Lỗi 404 khi refresh
+- SPA routing cần redirect về index.html
+- Kiểm tra _redirects file cho Netlify
+- Vercel tự động handle với vercel.json config
 
 ### Environment Variables
 Không cần thiết lập environment variables cho phiên bản hiện tại (sử dụng mock data).
