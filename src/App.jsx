@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { AppProvider } from './context/AppProvider';
-import { AuthProvider } from './context/AuthProvider';
-import { OrderProvider } from './context/OrderProvider';
+import { AppProvider } from './context/AppContext';
+import { AuthProvider } from './context/AuthContext';
+import { OrderProvider } from './context/OrderContext';
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import CoursesPage from './pages/CoursesPage';
