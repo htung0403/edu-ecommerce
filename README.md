@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # EduMarket - Sàn Giáo Dục Thương Mại Điện Tử với AI
 
 ## 🚀 Tổng quan
