@@ -122,14 +122,7 @@ src/
 - [x] Clean code và best practices
 - [x] Mock API với realistic delays
 
-## 📄 License
-
-Dự án được phát hành dưới [MIT License](LICENSE).
-
-## 👨‍� Tác giả
+## 👨‍ Tác giả
 
 **htung0403** - [GitHub Profile](https://github.com/htung0403)
 
----
-
-⭐ **Nếu bạn thấy project hữu ích, hãy cho một star nhé!** ⭐
