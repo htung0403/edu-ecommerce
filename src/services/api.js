@@ -34,10 +34,9 @@ export const productService = {
         // Lọc theo giá
         if (params.priceRange && params.priceRange !== 'all') {
           const ranges = {
-            'under-300k': { min: 0, max: 300000 },
-            '300k-500k': { min: 300000, max: 500000 },
-            '500k-700k': { min: 500000, max: 700000 },
-            'above-700k': { min: 700000, max: Infinity }
+            'under-500k': { min: 0, max: 500000 },
+            '500k-1m': { min: 500000, max: 1000000 },
+            'above-1m': { min: 1000000, max: Infinity }
           };
           
           const range = ranges[params.priceRange];
@@ -98,21 +97,142 @@ export const productService = {
   },
   
   // Gợi ý sản phẩm thông minh (AI)
-  getSuggestions: async (userId = 'user123') => {
+  getSuggestions: async (userId = 'user123', userFavorites = [], userViewHistory = []) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        // Simulate AI suggestions based on user behavior
-        // In real app, userId would be used to personalize suggestions
-        console.log(`Generating suggestions for user: ${userId}`);
+        // Extract categories from actual user data
+        const favoriteCategories = [...new Set(userFavorites.map(item => item.category))];
+        const viewedCategories = [...new Set(userViewHistory.map(item => item.category))];
+        const viewedProducts = userViewHistory.map(item => item.id);
         
-        const suggestions = mockProducts
-          .sort(() => Math.random() - 0.5) // Random shuffle
-          .slice(0, 6); // Get 6 suggestions
+        // Extract tags from favorites and viewed products
+        const favoriteTags = [...new Set(userFavorites.flatMap(item => item.tags || []))];
+        const viewedTags = [...new Set(userViewHistory.flatMap(item => item.tags || []))];
+        const allUserTags = [...new Set([...favoriteTags, ...viewedTags])];
+        
+        // Calculate user's typical price range from favorites and viewed products
+        const allUserProducts = [...userFavorites, ...userViewHistory];
+        let priceRange = { min: 299000, max: 799000 }; // Default range
+        
+        if (allUserProducts.length > 0) {
+          const prices = allUserProducts.map(item => item.price);
+          const minPrice = Math.min(...prices);
+          const maxPrice = Math.max(...prices);
+          const avgPrice = prices.reduce((sum, price) => sum + price, 0) / prices.length;
+          
+          // Create a range around user's typical price preference
+          priceRange = {
+            min: Math.max(0, Math.min(minPrice, avgPrice * 0.7)),
+            max: Math.max(maxPrice, avgPrice * 1.5)
+          };
+        }
+        
+        // Determine user's skill level preference from viewed/favorite courses
+        const skillLevels = allUserProducts.map(item => item.level).filter(Boolean);
+        const skillLevelCount = skillLevels.reduce((acc, level) => {
+          acc[level] = (acc[level] || 0) + 1;
+          return acc;
+        }, {});
+        const preferredSkillLevel = Object.keys(skillLevelCount).sort((a, b) => 
+          skillLevelCount[b] - skillLevelCount[a]
+        )[0] || 'Trung bình';
+
+        // Build user behavior profile from real data
+        const userBehavior = {
+          viewedCategories,
+          favoriteCategories,
+          priceRange,
+          viewedProducts,
+          skill_level: preferredSkillLevel,
+          tags: allUserTags
+        };
+
+        console.log(`Generating AI suggestions for user: ${userId}`);
+        console.log('User behavior profile:', userBehavior);
+        
+        let scoredProducts = mockProducts.map(product => {
+          let score = 0;
+          
+          // Score based on favorite categories (highest weight)
+          if (userBehavior.favoriteCategories.includes(product.category)) {
+            score += 50;
+          }
+          
+          // Score based on viewed categories
+          if (userBehavior.viewedCategories.includes(product.category)) {
+            score += 30;
+          }
+          
+          // Score based on price range preference
+          if (product.price >= userBehavior.priceRange.min && 
+              product.price <= userBehavior.priceRange.max) {
+            score += 25;
+          }
+          
+          // Score based on skill level match
+          if (product.level === userBehavior.skill_level) {
+            score += 20;
+          }
+          
+          // Score based on matching tags
+          const matchingTags = product.tags.filter(tag => 
+            userBehavior.tags.includes(tag)
+          );
+          score += matchingTags.length * 15;
+          
+          // Score based on rating (popular products)
+          score += product.rating * 5;
+          
+          // Penalty for already viewed products
+          if (userBehavior.viewedProducts.includes(product.id)) {
+            score -= 20;
+          }
+          
+          // Bonus for courses in same category as favorites but not already owned
+          if (userBehavior.favoriteCategories.includes(product.category) && 
+              !userFavorites.some(fav => fav.id === product.id)) {
+            score += 15;
+          }
+          
+          // Small random factor to add variety
+          score += Math.random() * 10;
+          
+          return { ...product, aiScore: score };
+        });
+        
+        // Sort by AI score and get top suggestions
+        const suggestions = scoredProducts
+          .sort((a, b) => b.aiScore - a.aiScore)
+          .slice(0, 6)
+          // eslint-disable-next-line no-unused-vars
+          .map(({ aiScore, ...product }) => product); // Remove aiScore from response
+        
+        // Generate personalized reason based on real data
+        const topCategory = userBehavior.favoriteCategories[0] || userBehavior.viewedCategories[0];
+        let reason = 'Gợi ý dành riêng cho bạn từ AI';
+        
+        if (topCategory) {
+          const reasonMessages = [
+            `Dựa trên sở thích ${topCategory} và lịch sử xem của bạn`,
+            `Phù hợp với trình độ ${userBehavior.skill_level} và sở thích của bạn`,
+            `Các khóa học ${topCategory} được đề xuất riêng cho bạn`,
+            `Dựa trên ${userFavorites.length} khóa học yêu thích và ${userViewHistory.length} lượt xem`
+          ];
+          reason = reasonMessages[Math.floor(Math.random() * reasonMessages.length)];
+        }
         
         resolve({
           data: {
             suggestions,
-            reason: `Dựa trên lịch sử xem và sở thích của bạn (User: ${userId})`
+            reason,
+            userInsights: {
+              primaryInterest: topCategory || 'Chưa xác định',
+              skillLevel: userBehavior.skill_level,
+              priceRange: `${Math.floor(userBehavior.priceRange.min/1000)}K - ${Math.floor(userBehavior.priceRange.max/1000)}K`,
+              totalViewed: userViewHistory.length,
+              totalFavorites: userFavorites.length,
+              topCategories: [...userBehavior.favoriteCategories, ...userBehavior.viewedCategories].slice(0, 3)
+            }
           }
         });
       }, 1000); // Longer delay to simulate AI processing
@@ -184,7 +304,8 @@ export const chatbotService = {
 // Export individual functions for convenience
 export const getProducts = productService.getProducts;
 export const getProductById = productService.getProductById;
-export const getSuggestions = productService.getSuggestions;
+export const getSuggestions = (userId, userFavorites, userViewHistory) => 
+  productService.getSuggestions(userId, userFavorites, userViewHistory);
 export const getSearchSuggestions = productService.getSearchSuggestions;
 
 export default api;

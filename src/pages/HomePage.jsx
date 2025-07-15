@@ -19,7 +19,13 @@ const HomePage = ({ showSuggestions, onSuggestionsShown, onNavigate }) => {
   });
   
   const { products, loading, refetch } = useProducts();
-  const { suggestions, loading: suggestionsLoading, refetch: fetchSuggestions } = useSuggestions();
+  const { 
+    suggestions, 
+    loading: suggestionsLoading, 
+    reason,
+    userInsights,
+    refreshSuggestions: fetchSuggestions 
+  } = useSuggestions();
   const { viewHistory } = useApp();
 
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -137,10 +143,26 @@ const HomePage = ({ showSuggestions, onSuggestionsShown, onNavigate }) => {
         {/* AI Suggestions */}
         {showSuggestionsSection && (
           <div className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-              <Sparkles className="text-purple-600" />
-              Gợi ý dành cho bạn
-            </h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                <Sparkles className="text-purple-600" />
+                Gợi ý dành cho bạn
+              </h2>
+              {userInsights && (
+                <div className="text-sm text-gray-600 bg-purple-50 px-3 py-2 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <span>🎯 {userInsights.primaryInterest}</span>
+                    <span>📚 {userInsights.totalFavorites} yêu thích</span>
+                    <span>👀 {userInsights.totalViewed} đã xem</span>
+                  </div>
+                </div>
+              )}
+            </div>
+            {reason && (
+              <p className="text-gray-600 mb-4 italic">
+                {reason}
+              </p>
+            )}
             {suggestionsLoading ? (
               <LoadingSkeleton type="suggestions" count={6} />
             ) : (

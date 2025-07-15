@@ -45,10 +45,9 @@ const SearchBar = ({ onSearch, onFilterChange, filters }) => {
 
   const priceRanges = [
     { id: 'all', name: 'Tất cả' },
-    { id: 'under-300k', name: 'Dưới 300K' },
-    { id: '300k-500k', name: '300K - 500K' },
-    { id: '500k-700k', name: '500K - 700K' },
-    { id: 'above-700k', name: 'Trên 700K' }
+    { id: 'under-500k', name: 'Dưới 500K' },
+    { id: '500k-1m', name: '500K - 1 triệu' },
+    { id: 'above-1m', name: 'Trên 1 triệu' }
   ];
 
   const sortOptions = [
